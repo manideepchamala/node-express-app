@@ -18,15 +18,12 @@ const port = process.env.PORT || config.get("port");
 
 // declare your callback function the old way
 app.get('/', function (req, res) {
-  res.send('Welcome to the default page!  <br> <br>' +
+  res.send('<div style="background: #FFFF;min-height: 100vh;padding: 2%;"><h1 style="color:red">Welcome to the default page!</h1> <br>'+
     'Try going to different URIs by adding these at the end: <br> <br>' +
     '/hello <br>' +
-    '/big <br>' +
-    '/json <br>' +
-    '/greeting/yourname <br>' +
-    '/yo/Dr.Rogers <br>' +
-    '/fortune <br>' +
-    '/fancy/?first=Denise&last=Case <br>' +
+    '/open'+
+    '/greeting/manideep <br>' +
+    '<a href="https://github.com/manideepchamala/node-express-app">My Repo</a>'+
     '<br> <br>' +
     'Fork the source code from <a href="https://github.com/denisecase/node-express-app">https://github.com/denisecase/node-express-app</a>'
   )
@@ -39,13 +36,8 @@ app.get('/hello', (req, res) => {
 })
 
 // or respond with html
-app.get('/big', (req, res) => {
-  res.send('<h1>Hello World!</h1>')
-})
-
-// or respond with JSON
-app.get('/json', (req, res) => {
-  res.send('{"name" : "Nandini"}')
+app.get('/open', (req, res) => {
+  res.send('<h1>This is manideep</h1>')
 })
 
 // :name indicates a parameter at this location in the URI
@@ -53,34 +45,9 @@ app.get('/greeting/:id', (req, res) => {
   res.send(`Hello! The id provided was ${req.params.id}.`)
 })
 
-// combine your skills and get creative
-app.get('/yo/:buddy', (req, res) => {
-  res.send(`<h1>Yo, ${req.params.buddy}!</h1>`)
-})
 
-// provide multiple query parameters (named first and last) with ? and &
-app.get('/fancy', (req, res) => {
-  const first = req.query.first
-  const last = req.query.last
-  res.send(`Hello ${first} ${last}!`)
-})
 
-let fortunes = ['It is certain.', 'It is decidedly so.', 'Without a doubt.', 'Yes - definitely.',
-'You may rely on it', 'As I see it, yes.', 'Most likely', 'Outlook good.', 'Yes.', 'Signs point to yes.',
-'Reply hazy, try again.', 'Ask again later.', 'Better not tell you now.', 'Cannot predict now.', 
-'Concentrate and ask again.', 'Don\'t count on it.', 'My reply is no.', 'My sources say no.', 'Outlook not so good.',
-'Very doubtful.']
 
-// Implements a Magic 8 Ball service
-app.get('/fortune', (req,res) => {
-  if(isEmpty(req.query)){
-    res.send('<h2>You wish to know the future?</h2>' +
-             '<p>Ask a question in the query string, e.g., http://localhost:3002/fortune?Will I become rich? <br/>' +
-             '<p>The Magic 8 Ball will answer!</p>')
-  } else {
-    res.send(`The answer is ... wait for it ... ${fortunes[randomInt(0, fortunes.length)]}`)
-  }
-})
 
 // Use middleware to handle all non-managed routes (e.g. /xyz)
 // https://expressjs.com/en/api.html#req.originalUrl
@@ -93,12 +60,7 @@ app.listen(port, hostname, () => {
   console.log(`\n App listening at http://${hostname}:${port}/`)
   console.log(`\n Try going to different URIs:\n`)
   console.log(`   Try /hello`)
-  console.log(`   Try /big`)
-  console.log(`   Try /json`)
-  console.log(`   Try /fortune`)
   console.log(`   Try /greeting/yourname`)
-  console.log(`   Try /yo/Dr.Rogers`)
-  console.log(`   Try /fancy/?first=Denise&last=Case`)
   console.log('\n Hit CTRL-C CTRL-C to stop\n')
 })
 
